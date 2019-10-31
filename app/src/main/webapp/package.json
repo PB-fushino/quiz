@@ -1,0 +1,24 @@
+{
+  "name": "gulp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "gulp",
+    "build": "gulp build"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "ie >= 11"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-imagemin": "^6.1.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^4.0.2",
+    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-pngquant": "^8.0.0"
+  }
+}
