@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="assets/styles/style.css" />
   <title>タイトル</title>
+  <script type="text/javascript" src="js/main.js">
+  </script>
 </head>
 <body>
-  <h1 class="c-title__h1">コンテンツタイトルが入ります。</h1>
+    
+  <!-- <h1 class="c-title__h1">コンテンツタイトルが入ります。</h1> -->
   <h2 class="problem">ここに問題が入ります</h2>
   <div class="sample"><p>sampleコンテンツ</p>
-    <div class="sample__img"><img src="assets/images/sample/bitibiti.png" alt="びちびち"></div>
-    <a href="#">リンクテスト</a>
+    <div class="sample__img"><img src="assets/images/sample/logo.png" alt="びちびち"></div>
+    <a href="index.html">リンクテスト</a>
   </div>
+  
+  
+  <button type="button" name="name" value="value" onclick="func()">button</button>
+
+  <button type="button" name="name" value="value" onclick="img()">button</button>
+  <div id="app">
+      <p>{{ message }}</p>
+  </div>
+
+  <div id="abcd">
+      <div>
+        <p>URL</p>
+        <input type="text" id="url" v-model="url" size="60">
+      </div>
+      <div>
+        <p>PARAM</p>
+        <input type="text" id="param" v-model="param" size="60">
+      </div>
+      <div>
+          <button v-on:click="post">POST</button>
+      </div>
+      <div>
+          <p>RESULT</p>
+          <textarea v-model="result" cols="60" rows="10"></textarea>
+      </div>    
+  </div>
+  
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- <script src="https://unpkg.com/vue"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js">
+  </script>
+  <script src="js/vue.js"></script>
 </body>
 </html>
