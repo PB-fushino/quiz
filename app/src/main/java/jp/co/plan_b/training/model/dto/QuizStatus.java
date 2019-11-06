@@ -6,20 +6,21 @@ import lombok.Setter;
 @Setter
 @Getter
 
-public class User {
+public class QuizStatus {
 
 	private Integer id;
-	private String name;
+	private Integer qid;
+	private String  status;
 
-
-	public User() {
+	public QuizStatus() {
 	}
 
-
-	public String getName() {
+	public int getQid() {
 		// TODO 自動生成されたメソッド・スタブ
-		return name;
+		return qid;
 	}
+
+
 
 
 
