@@ -1,8 +1,7 @@
-function func(){
-    alert("click");
-}
+// import router from './route.js'
 
-function img() {
-    alert("kk");
-}
-
+// new Vue({
+//     el:'#app',
+//     router,//アプリケーションに登録
+//     render: h => h(App)
+// })

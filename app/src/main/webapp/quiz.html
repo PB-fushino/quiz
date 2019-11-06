@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="assets/styles/style.css" />
+  <title>タイトル</title>
+  <script type="text/javascript" src="js/ajax.js">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <h1 class="problem"></h1>
+  <div><a href="index.html">戻る</a></div>
+  <div><a href="admin.html">管理画面へ</a></div>
+
+  <div class="choices">
+      <div class="choice-a">
+        <button  class="button a" onclick="answer()">
+      </div>
+      <div class="choice-b">
+          <button  class="button b" onclick="answer()">
+      </div>
+  </div>
+  <div class="choices">
+      <div class="choice-c">
+          <button  class="button c" onclick="answer()">
+      </div>
+      <div class="choice-d">
+          <button  class="button d" onclick="answer()">
+      </div>
+  </div>
+
+  <script>
+     window.onload = quiz();
+
+      var count = 0;
+      var countup = function(){
+        console.log(count++);
+      }
+      var id = setInterval(function(){
+        countup();
+        if(count > 5){　
+          clearInterval(id);　//idをclearIntervalで指定している
+        }
+      } , 1000
+      );
+
+  </script>
+
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- <script src="https://unpkg.com/vue"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js">
+  </script>
+  <script src="js/vue.js"></script>
+</body>
+</html>

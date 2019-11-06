@@ -1,11 +1,11 @@
 @charset "utf-8";
 
 .problem {
-     
         @include fz(21, 37, 700);
-        color: #ff00ff;
-        background: $colorMain;
+        color: #ffffff;
+        background-color: #3AC7BA;
         padding: 15px;
         font-size:40px;
+        text-align: center;
     
 }

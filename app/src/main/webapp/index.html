@@ -4,44 +4,47 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="assets/styles/style.css" />
   <title>タイトル</title>
-  <script type="text/javascript" src="js/main.js">
+  <script type="text/javascript" src="js/ajax.js">
   </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
 </head>
 <body>
-    
-  <!-- <h1 class="c-title__h1">コンテンツタイトルが入ります。</h1> -->
-  <h2 class="problem">ここに問題が入ります</h2>
-  <div class="sample"><p>sampleコンテンツ</p>
-    <div class="sample__img"><img src="assets/images/sample/logo.png" alt="びちびち"></div>
-    <a href="index.html">リンクテスト</a>
-  </div>
-  
-  
-  <button type="button" name="name" value="value" onclick="func()">button</button>
 
-  <button type="button" name="name" value="value" onclick="img()">button</button>
-  <div id="app">
-      <p>{{ message }}</p>
+  <h1 class="problem">名前を入力してください</h1>
+
+  <div class="choices">
+      <div class="form">
+          <form id="form" class="mx-auto text-primary" onsubmit="login()">
+              <label>名前</label>
+            　　 <input class="form-control" type="text"
+                name="name" value="" required placeholder="username"><br>
+              <input class="btn-real" type="button" 
+                value="" onclick="login();return false;"></br>
+            </form>
+      </div>
   </div>
 
-  <div id="abcd">
-      <div>
-        <p>URL</p>
-        <input type="text" id="url" v-model="url" size="60">
-      </div>
-      <div>
-        <p>PARAM</p>
-        <input type="text" id="param" v-model="param" size="60">
-      </div>
-      <div>
-          <button v-on:click="post">POST</button>
-      </div>
-      <div>
-          <p>RESULT</p>
-          <textarea v-model="result" cols="60" rows="10"></textarea>
-      </div>    
-  </div>
-  
+  <script>
+    // window.onload = firstscript;
+      var count = 0;
+      var countup = function(){
+        console.log(count++);
+      }
+      var id = setInterval(function(){
+        countup();
+        if(count > 5){　
+          clearInterval(id);　//idをclearIntervalで指定している
+        }
+      } , 1000
+      );
+
+  </script>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- <script src="https://unpkg.com/vue"></script> -->
