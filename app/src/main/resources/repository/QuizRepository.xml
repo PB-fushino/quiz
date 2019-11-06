@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.plan_b.training.model.repository.user.QuizRepository">
+    <resultMap id="ResultTest" type="jp.co.plan_b.training.model.dto.Quiz">
+
+    </resultMap>
+
+    <select id="getAllQuiz"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 quiz
+    </select>
+</mapper>
