@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="assets/styles/style.css" />
+  <title>タイトル</title>
+  <script type="text/javascript" src="js/ajax.js">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+    <p class="flower_left"><img src="/assets/images/sample/images/images/images/flower_left_02.png"></p>
+<main>
+    <p style="height:40px;"></p>
+    <p><img  src ="/assets/images/sample/images/images/images/question_02_07.png" class="mark"></p>
+    <!-- <p><img  src ="assets/images/sample/images/images/images/answer_03_05.png" class="mark"></p> -->
+  <div class="question">
+
+    <p class="problem"></p>
+    <ul class="choices_text">
+      <li class="choice_text">
+        <p class="c_text a"></p>
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choce_1_text_07.png">
+        </div>
+        <p class="number_of_answers_text a"></p>
+        <div class="gray_out 0">
+            <img src="/assets/images/sample/images/images/images/04.png">
+          </div>
+      </li>
+      <li class="choice_text">
+        <p class="c_text b"></p>
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choice_2_text_09.png">
+        </div>
+        <p class="number_of_answers_text b"></p>
+        <div class="gray_out 1">
+            <img src="/assets/images/sample/images/images/images/04.png">
+          </div>
+      </li>
+      <li class="choice_text">
+        <p class="c_text c"></p>
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choice_3_text_13.png">
+        </div>
+        <p class="number_of_answers_text c"></p>
+        <div class="gray_out 2">
+            <img src="/assets/images/sample/images/images/images/04.png">
+          </div>
+      </li>
+      <li class="choice_text">
+        <p class="c_text d"></p>
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choice_4_text_15.png">
+        </div>
+        <p class="number_of_answers_text d"></p>
+        <div class="gray_out 3">
+            <img src="/assets/images/sample/images/images/images/04.png">
+          </div>
+      </li>
+    </ul>
+  </div>
+</main>
+<script>
+    var qid;
+    window.onload = checkquiz_gray();
+    window.onload = checkanswer();
+    window.onload=function(){
+          var count = 10;
+          var check = setInterval(function(){
+            check_quiz_status_winner();
+            if(count <= 0) clearInterval(id);
+          },1000);
+      }
+ </script>
+
+</body>
+
+<p class="flower_right">
+  <img src="/assets/images/sample/images/images/images/flower_right.png">
+</p>
+</html>

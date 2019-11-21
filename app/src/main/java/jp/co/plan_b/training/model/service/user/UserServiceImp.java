@@ -19,4 +19,24 @@ public class UserServiceImp implements UserService {
 		return userRepository.getAll();
 	}
 
+
+	@Override
+	public User getUserById(Integer id) {
+		return userRepository.getUserById(id);
+	}
+
+	@Override
+	public User getUserByname(String name) {
+		// TODO 自動生成されたメソッド・スタブ
+		return userRepository.getUserByName(name);
+	}
+
+
+	@Override
+	public void registerUser(String name) {
+		userRepository.registerUser(name);
+
+	}
+
+
 }

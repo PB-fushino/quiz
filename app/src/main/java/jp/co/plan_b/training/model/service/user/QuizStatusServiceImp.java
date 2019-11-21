@@ -22,6 +22,5 @@ public class QuizStatusServiceImp implements QuizStatusService {
 	@Override
 	public void changeStatus(QuizStatus json) {
 		quizStatusRepository.changeStatus(json.getQid(),json.getStatus());
-		System.out.println("1");
 	}
 }

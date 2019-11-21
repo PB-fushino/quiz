@@ -1,0 +1,108 @@
+CREATE TABLE quiz.user (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+create table quiz.quiz(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    term INT,
+    ordernumber INT,
+    problem TEXT,
+    answer TEXT,
+    choice_a VARCHAR(50),
+    choice_b VARCHAR(50),
+    choice_c VARCHAR(50),
+    choice_d VARCHAR(50)
+)
+create table quiz.quiz_status(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    qid INT,
+    status VARCHAR(50)
+)
+INSERT INTO quiz VALUES (
+    1,
+    1,
+    1,
+    "人間がゴリラに勝てるのは何？？",
+    "投げる力",
+    "噛む力",
+    "掴む力",
+    "投げる力",
+    "殴る力"
+)
+
+INSERT INTO quiz_status VALUES (
+    1,
+    1,
+    "出題"   
+)
+
+
+//正解者とタイムを取り出す
+
+select 
+answer.time,
+user.name
+from answer
+left join user on answer.uid = user.id
+left join quiz on answer.qid = quiz.id 
+where 
+answer.answer = quiz.answer
+and 
+quiz.id = 1
+ORDER BY 
+answer.time asc;
+
+
+//回答時間、と名前を撮ってくる
+<select id="checkTime"  resultMap="ResultTest">
+	select
+	answer.time,
+	user.name
+	from answer
+	left join user on answer.uid = user.id
+	left join quiz on answer.qid = quiz.id
+	where
+	answer.answer = quiz.answer
+	and
+	quiz.id = 1
+	ORDER BY
+	answer.time asc;
+</select>
+
+//ユーザーIDを持ちいて、総正解数と、総回答時間をみる
+<select id="checkTime"  resultMap="ResultTest">
+	select
+	answer.time,
+	user.name
+	from answer
+	left join user on answer.uid = user.id
+	left join quiz on answer.qid = quiz.id
+	where
+	answer.answer = quiz.answer
+	and
+	quiz.uid = id
+</select>
+
+
+
+<resultMap id="checkTime" type="jp.co.plan_b.training.model.dto.Answer">
+	     <result property="id" column="id"/>
+	     <result property="uid" column="uid"/>
+	     <result property="qid" column="qid"/>
+	     <result property="answer" column="answer"/>
+	     <result property="time" column="time"/>
+
+	     <collection property="userinputs" ofType="jp.co.plan_b.training.model.dto.Userinput">
+	     <result property="userinput_id" column="userinput_id"/>
+	     <result property="omikuji_id" column="omikuji_id"/>
+	     <result property="userinput" column="userinput"/>
+	     </collection>
+
+	     <collection property="userinputs" ofType="jp.co.plan_b.training.model.dto.Userinput">
+	     <result property="userinput_id" column="userinput_id"/>
+	     <result property="omikuji_id" column="omikuji_id"/>
+	     <result property="userinput" column="userinput"/>
+	     </collection>
+
+    </resultMap>

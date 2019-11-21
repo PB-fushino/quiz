@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+.check{
+    display: block; 
+    // margin: 50px;
+    width:100%;
+}
+
+tr {
+  border: 0.1rem;
+  border-style: solid;
+  width:20%;
+}
+
+
+td {
+    border: 0.1rem;
+    border-style: solid;
+    width:20%;
+}
+
+.choices{
+    margin-right: 50px;
+    margin-left: 50px;
+    padding: 10px;
+    // height: 60px;
+    background: #3AC7BA;
+    color: #fff;
+    line-height: 30px;
+    list-style: none;
+    text-align: center;
+    opacity: 0;   
+    font-size:20px;
+  }
+  
+  @mixin animationValue( $name, $duration , $function, $delay, $count, $state){
+      -webkit-animation: $name $duration+s $function $delay+s $count $state;
+    animation: $name $duration+s $function $delay+s $count $state;
+  }
+  
+  @for $cnt from 1 through 30{
+      .item:nth-child(#{$cnt}){
+          @include animationValue(example, 0.5, ease, $cnt * 0.5 , 1, forwards);
+      }
+
+  } 
+  
+  @mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+      @content; 
+    }
+    @keyframes #{$name} {
+      @content;
+    } 
+  }
+  
+  @include keyframes(example) {
+    100% {
+        opacity: 1;
+    } 
+  }

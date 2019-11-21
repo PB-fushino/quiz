@@ -11,4 +11,35 @@
       	FROM
       	 user
     </select>
+
+    <select id="getUserByName"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 user
+      	 where
+      	 name = #{name}
+    </select>
+
+    <select id="getUserById"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 user
+      	 where
+      	 id = #{id}
+    </select>
+
+    <insert id ="registerUser" >
+    insert into user
+
+    (name)
+
+    values(#{name})
+
+
+
+    </insert>
+
+
 </mapper>

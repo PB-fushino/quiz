@@ -15,41 +15,44 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-
-  <h1 class="problem">名前を入力してください</h1>
-
-  <div class="choices">
-      <div class="form">
-          <form id="form" class="mx-auto text-primary" onsubmit="login()">
-              <label>名前</label>
-            　　 <input class="form-control" type="text"
-                name="name" value="" required placeholder="username"><br>
-              <input class="btn-real" type="button" 
-                value="" onclick="login();return false;"></br>
-            </form>
+    <main>
+        <p class="relative"style="height:108px;"></p>
+        <p class="flower_left"><img src="/assets/images/sample/images/images/images/flower_left_02.png"></p>
+        <p><img  src ="/assets/images/sample/images/images/images/question_sp_03.png" class="mark_sp"></p>
+      <div class="question_sp">
+          <p class="relative"style="height:300px;"></p>
+          <div class="choices">
+              <div class="form">
+                  <p class="relative"style="height:100px;"></p>
+                  <form id="form" class="mx-auto text-primary" style="text-align:center;">
+                      <label　style="text-align:center;">お名前<br></label>
+                    　　 <input class="form-control" type="text"
+                        name="name" value="" required placeholder="" style="height:50px;width:300px;font-size:100%;"><br>
+                        <p class="relative"style="height:100px;"></p>
+                      <input class="btn-real" type="button"
+                        value="Go" onclick="checkUser();return false;"></br>
+                    </form>
+                    <p class="relative"style="height:100px;"></p>
+              </div>
+          </div>
       </div>
-  </div>
+      
+    </main>
+          <p class="flower_right"><img src="/assets/images/sample/images/images/images/flower_right.png"></p>
 
   <script>
-    // window.onload = firstscript;
-      var count = 0;
-      var countup = function(){
-        console.log(count++);
+    function checkUser(){
+      var name = document.forms.form.name.value;
+      if(window.confirm('お名前は'+name+'でよろしいですか？')){
+        login();
+        return true;
       }
-      var id = setInterval(function(){
-        countup();
-        if(count > 5){　
-          clearInterval(id);　//idをclearIntervalで指定している
-        }
-      } , 1000
-      );
-
+      else{ // 「キャンセル」時の処理
+        window.alert('もう一度入力してください'); // 警告ダイアログを表示
+        return false; // 送信を中止
+      }
+    }
   </script>
-
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <!-- <script src="https://unpkg.com/vue"></script> -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js">
-  </script>
-  <script src="js/vue.js"></script>
+  
 </body>
 </html>

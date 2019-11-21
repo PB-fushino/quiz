@@ -17,4 +17,11 @@ public interface UserRepository {
 	 */
 	List<User> getAll();
 
+	User getUserByName(String name);
+
+	User getUserById(Integer id);
+
+	void registerUser(String name);
+
+
 }

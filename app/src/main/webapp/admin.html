@@ -17,25 +17,20 @@
 <body>
 
   <h1 class="problem">管理画面</h1>
-  <div><a href="index.html">戻る</a></div>
-  <div><a href="admin.html">管理画面へ</a></div>
+  <div><button class="winner"onclick="winner()">ランキング</button></div>
+ 
+  <!-- <div style="height:10px;"></div> -->
+  <table class="check"></table>
 
-  <div class="choices">
-      <div class="choice-a">
-        <button  class="button a" onclick="change_status(1)">出題
-      </div>
-      <div class="choice-b">
-          <button  class="button b" onclick="change_status(2)">待機
-      </div>
+  <div class="problems">
   </div>
-  <div class="choices">
-      <div class="choice-c">
-          <button  class="button c" onclick="change_status(3)">回答チェック
-      </div>
-      <div class="choice-d">
-          <button  class="button d" onclick="change_status(4)">回答発表
-      </div>
-  </div>
+  <!-- <div><a href="index.html">戻る</a></div>
+  <div><a href="admin.html">管理画面へ</a></div>
+  <div><a href="user.html">ユーザー画面へ</a></div> -->
+
+  <script>
+      window.onload=quizAll();
+  </script>
 
 
 

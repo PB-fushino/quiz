@@ -1,224 +1,224 @@
-* {
-    &,
-    &::after,
-    &::before {
-        box-sizing: border-box;
-    }
-}
+// * {
+//     &,
+//     &::after,
+//     &::before {
+//         box-sizing: border-box;
+//     }
+// }
 
-a,
-img,
-input,
-svg,
-*::before,
-*::after {
-    backface-visibility: hidden;
-}
+// a,
+// img,
+// input,
+// svg,
+// *::before,
+// *::after {
+//     backface-visibility: hidden;
+// }
 
-a:hover img,
-a:hover input {
-    backface-visibility: hidden;
-    text-decoration: none;
-}
+// a:hover img,
+// a:hover input {
+//     backface-visibility: hidden;
+//     text-decoration: none;
+// }
 
-html {
-    font-size: $fontSize;
-    -webkit-font-smoothing: antialiased; //transitionによる文字のにじみ回避
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
+// html {
+//     font-size: $fontSize;
+//     -webkit-font-smoothing: antialiased; //transitionによる文字のにじみ回避
+//     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+// }
 
-body {
-    background-color: $bgColor;
-    color: $colorText;
-    font-family: $fontFamily;
-    line-height: $lineHeight;
-    overflow-wrap: break-word;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    word-wrap: break-word;
-}
+// body {
+//     background-color: $bgColor;
+//     color: $colorText;
+//     font-family: $fontFamily;
+//     line-height: $lineHeight;
+//     overflow-wrap: break-word;
+//     -webkit-text-size-adjust: 100%;
+//     -ms-text-size-adjust: 100%;
+//     word-wrap: break-word;
+// }
 
-// text
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-strong,
-em {
-    font-weight: 700;
-}
+// // text
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// strong,
+// em {
+//     font-weight: 700;
+// }
 
-pre {
-    white-space: pre-wrap;
-}
+// pre {
+//     white-space: pre-wrap;
+// }
 
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-}
+// sub,
+// sup {
+//     font-size: 75%;
+//     line-height: 0;
+//     position: relative;
+//     vertical-align: baseline;
+// }
 
-sup {
-    top: -.5em;
-}
+// sup {
+//     top: -.5em;
+// }
 
-sub {
-    bottom: -.25em;
-}
+// sub {
+//     bottom: -.25em;
+// }
 
-// link
-a {
-    color: $colorTextLink;
-    outline: none;
-    text-decoration: none;
-    transition: background-color 100ms, border-color 100ms, color 100ms,
-        opacity 100ms;
-}
+// // link
+// a {
+//     color: $colorTextLink;
+//     outline: none;
+//     text-decoration: none;
+//     transition: background-color 100ms, border-color 100ms, color 100ms,
+//         opacity 100ms;
+// }
 
-// image
-canvas,
-img,
-svg,
-video {
-    max-width: 100%;
-    vertical-align: top;
-}
+// // image
+// canvas,
+// img,
+// svg,
+// video {
+//     max-width: 100%;
+//     vertical-align: top;
+// }
 
-// table
-table {
-    width: 100%;
-    word-break: break-all;
-}
+// // table
+// table {
+//     width: 100%;
+//     word-break: break-all;
+// }
 
-th {
-    text-align: left;
-}
+// th {
+//     text-align: left;
+// }
 
-// form
-input,
-button,
-select,
-textarea {
-    border: 0;
-    border-radius: 0;
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    // line-height: inherit;
-    line-height: normal; //iOS Safariでplaceholderのline-heightがずれるため
-    margin: 0;
-    outline: none;
-    padding: 0;
-    vertical-align: middle;
-    &::-moz-focus-inner {
-        border: 0;
-    }
-}
+// // form
+// input,
+// button,
+// select,
+// textarea {
+//     border: 0;
+//     border-radius: 0;
+//     color: inherit;
+//     font-family: inherit;
+//     font-size: inherit;
+//     // line-height: inherit;
+//     line-height: normal; //iOS Safariでplaceholderのline-heightがずれるため
+//     margin: 0;
+//     outline: none;
+//     padding: 0;
+//     vertical-align: middle;
+//     &::-moz-focus-inner {
+//         border: 0;
+//     }
+// }
 
-input,
-button,
-textarea {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
+// input,
+// button,
+// textarea {
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+// }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
+// input::-webkit-outer-spin-button,
+// input::-webkit-inner-spin-button {
+//     -webkit-appearance: none;
+// }
 
-input[type='number'] {
-    -moz-appearance: textfield;
-}
+// input[type='number'] {
+//     -moz-appearance: textfield;
+// }
 
-label {
-    // cursor: pointer;
-}
+// label {
+//     // cursor: pointer;
+// }
 
-input[type='checkbox'],
-input[type='radio'] {
-    &:disabled + label {
-        cursor: auto;
-    }
-}
+// input[type='checkbox'],
+// input[type='radio'] {
+//     &:disabled + label {
+//         cursor: auto;
+//     }
+// }
 
-input[type='checkbox'] {
-    appearance: checkbox;
-}
+// input[type='checkbox'] {
+//     appearance: checkbox;
+// }
 
-input[type='radio'] {
-    appearance: radio;
-    border-radius: 50%;
-}
+// input[type='radio'] {
+//     appearance: radio;
+//     border-radius: 50%;
+// }
 
-select {
-    cursor: pointer;
-    &::-ms-expand {
-        display: none;
-    }
-}
+// select {
+//     cursor: pointer;
+//     &::-ms-expand {
+//         display: none;
+//     }
+// }
 
-textarea {
-    resize: none;
-}
+// textarea {
+//     resize: none;
+// }
 
-input[type='button'],
-input[type='submit'],
-button {
-    background: none;
-    cursor: pointer;
-    &:disabled {
-        cursor: default;
-    }
-}
+// input[type='button'],
+// input[type='submit'],
+// button {
+//     background: none;
+//     cursor: pointer;
+//     &:disabled {
+//         cursor: default;
+//     }
+// }
 
-button {
-    overflow: visible; //IE11
-    vertical-align: middle;
-}
+// button {
+//     overflow: visible; //IE11
+//     vertical-align: middle;
+// }
 
-// placeholder
-:placeholder-shown {
-    color: #ababab;
-}
+// // placeholder
+// :placeholder-shown {
+//     color: #ababab;
+// }
 
-::-webkit-input-placeholder {
-    color: #ababab;
-}
+// ::-webkit-input-placeholder {
+//     color: #ababab;
+// }
 
-:-moz-placeholder {
-    color: #ababab;
-    opacity: 1;
-}
+// :-moz-placeholder {
+//     color: #ababab;
+//     opacity: 1;
+// }
 
-::-moz-placeholder {
-    color: #ababab;
-    opacity: 1;
-}
+// ::-moz-placeholder {
+//     color: #ababab;
+//     opacity: 1;
+// }
 
-:-ms-input-placeholder {
-    color: #ababab;
-}
+// :-ms-input-placeholder {
+//     color: #ababab;
+// }
 
-// テキスト選択時のスタイル
-// 同じ内容でも分けて指定しないと効かない
-::selection {
-    background: $colorMainActive;
-}
+// // テキスト選択時のスタイル
+// // 同じ内容でも分けて指定しないと効かない
+// ::selection {
+//     background: $colorMainActive;
+// }
 
-// Macだと入力中の文字に::selectionが効いてしまい、見えなくなるため
-input::selection,
-textarea::selection {
-    background: #ddd;
-    color: $colorText;
-}
+// // Macだと入力中の文字に::selectionが効いてしまい、見えなくなるため
+// input::selection,
+// textarea::selection {
+//     background: #ddd;
+//     color: $colorText;
+// }
 
-// IE11のクリアボタンを非表示
-input::-ms-clear {
-    display: none;
-}
+// // IE11のクリアボタンを非表示
+// input::-ms-clear {
+//     display: none;
+// }

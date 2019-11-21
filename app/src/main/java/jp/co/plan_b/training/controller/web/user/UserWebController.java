@@ -29,25 +29,25 @@ public class UserWebController {
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   @ResponseBody
-  public List<User> login(HttpServletRequest request, HttpServletResponse response,
+  public User login(HttpServletRequest request, HttpServletResponse response,
 	        @ModelAttribute User json) {
 	  String name = json.getName();
 	  System.out.println(name);
+	  userService.registerUser(name);
 	  List<User> user = userService.getAllUser();
-	  System.out.println(user.get(0).getName());
+	  User paneler = userService.getUserByname(json.getName());
+	  System.out.println("user"+paneler.getName());
+	  for (User a:user) {
+		  System.out.println(a.getName());
+	  }
 
-  //jsonログインページで入力したユーザーネームとパスワードが入っている
-//      String username = json.getUsername();
-//      String password = json.getPassword();
-//      boolean valid = password.equals(userService.getUserPassword(username));//パスの確認
-      return user;
+      return paneler;
     }
+
   @RequestMapping(value = "/wait", method = RequestMethod.POST)
   @ResponseBody
   public String wait(HttpServletRequest request, HttpServletResponse response,
         @ModelAttribute User json) {
-
-
   //jsonログインページで入力したユーザーネームとパスワードが入っている
 //      String username = json.getUsername();
 //      String password = json.getPassword();

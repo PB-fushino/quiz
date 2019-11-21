@@ -13,4 +13,11 @@ public interface UserService {
 	 */
 	List<User> getAllUser();
 
+	User getUserById(Integer id);
+
+	User getUserByname(String name);
+
+	void registerUser(String name);
+
+
 }
