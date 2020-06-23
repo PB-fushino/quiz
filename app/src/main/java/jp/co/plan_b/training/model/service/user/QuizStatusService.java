@@ -1,23 +1,17 @@
 package jp.co.plan_b.training.model.service.user;
 
-import java.util.List;
+import jp.co.plan_b.training.model.dto.QuizStatus;
 
-import jp.co.plan_b.training.model.dto.User;
-
-public interface UserService {
+public interface QuizStatusService {
 
 	/**
 	 * すべてのユーザー情報を返します.
 	 *   ユーザー情報がない場合は空配列を返します.
+	 * @param qid
 	 * @return すべてのユーザー情報
 	 */
-	List<User> getAllUser();
+	String getQuizStatus(int qid);
 
-	User getUserById(Integer id);
-
-	User getUserByname(String name);
-
-	void registerUser(String name);
-
+	void changeStatus(QuizStatus json);
 
 }
