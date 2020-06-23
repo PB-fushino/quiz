@@ -1,4 +1,4 @@
-package jp.co.plan_b.training.model.repository.user;
+package jp.co.plan_b.training.infractstucture.repository.quiz;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

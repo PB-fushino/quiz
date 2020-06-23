@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jp.co.plan_b.training.application.service.QuizService;
-import jp.co.plan_b.training.application.service.QuizStatusService;
-import jp.co.plan_b.training.application.service.UserService;
+import jp.co.plan_b.training.application.service.quiz.QuizService;
+import jp.co.plan_b.training.application.service.quiz.QuizStatusService;
+import jp.co.plan_b.training.application.service.user.UserService;
 import jp.co.plan_b.training.model.dto.Answer;
 import jp.co.plan_b.training.model.dto.Corrects;
 import jp.co.plan_b.training.model.dto.Quiz;

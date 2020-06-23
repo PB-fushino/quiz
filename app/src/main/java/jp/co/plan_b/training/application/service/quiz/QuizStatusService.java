@@ -1,4 +1,4 @@
-package jp.co.plan_b.training.application.service;
+package jp.co.plan_b.training.application.service.quiz;
 
 import jp.co.plan_b.training.model.dto.QuizStatus;
 
