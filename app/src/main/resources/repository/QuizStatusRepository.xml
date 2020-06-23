@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.plan_b.training.model.repository.user.QuizStatusRepository">
+    <resultMap id="ResultTest" type="jp.co.plan_b.training.model.dto.QuizStatus">
+    </resultMap>
+
+    <select id="getQuizStatus"  resultType="String">
+        SELECT
+         status
+      	FROM
+      	 quiz_status
+      	 where
+      	 qid = #{qid}
+    </select>
+
+    <update id="changeStatus">
+	update
+	quiz_status
+	set
+	status = #{status}
+	where qid=#{qid}
+	</update>
+</mapper>
