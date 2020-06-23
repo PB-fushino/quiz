@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!-- http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html -->
+
+  <!-- spring boot の設定を読む -->
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+  <!--ローカル環境及びテスト環境では、TRACE レベル以上を console に出力する -->
+  <springProfile name="local,development">
+    <root level="DEBUG">
+      <appender-ref ref="CONSOLE"/>
+    </root>
+  </springProfile>
+
+  <!--本番環境では、WARNING レベル以上を console に出力する -->
+  <springProfile name="production">
+    <root level="WARN">
+      <appender-ref ref="CONSOLE"/>
+    </root>
+  </springProfile>
+
+</configuration>

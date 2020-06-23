@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: jp.co.plan_b.training.controller.web.user.UserWebControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.174 s - in jp.co.plan_b.training.controller.web.user.UserWebControllerTest

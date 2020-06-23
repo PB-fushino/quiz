@@ -1,0 +1,4 @@
+jp/co/plan_b/training/controller/api/user/UserApiControllerTest.class
+jp/co/plan_b/training/controller/web/user/UserWebControllerTest.class
+jp/co/plan_b/training/TrainingApplicationTests.class
+jp/co/plan_b/training/service/user/UserServiceTest.class

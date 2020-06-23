@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: pb0062m
+Build-Jdk: 11.0.5
+Implementation-Title: training
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: jp.co.plan_b
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/training
+Created-By: Maven Integration for Eclipse
+

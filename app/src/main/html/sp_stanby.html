@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="assets/styles/style.css" />
+  <title>HappyWedding</title>
+  <script type="text/javascript" src="js/ajax.js">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+        <p class="relative"style="height:108px;"></p>
+        <p class="flower_left"><img src="/assets/images/sample/images/images/images/flower_left_02.png"></p>
+  
+        <p><img  src ="/assets/images/sample/images/images/images/question_sp_03.png" class="mark_sp"></p>
+        <!-- <p><img  src ="assets/images/sample/images/images/images/answer_03_05.png" class="mark"></p> -->
+      <div class="question_sp">
+        <div class="flex">
+            <p class="problem">しばらくお待ちください...</p>
+            <div class="logo">
+              </div>
+        </div>
+      </div>
+      <script>
+          var count = 0;
+          var countup = function(){
+            console.log(count++);
+          }
+          var id = setInterval(function(){
+            countup();
+            check_quiz_status_sp();
+          } , 1000
+          );
+          var number =  Math.floor( Math.random() * 10);
+          $(function(){
+            $('.logo').append('<img class="party" src="assets/wait/no_'+number+'.JPG" alt="びちびち">');
+          });
+      </script>
+    </main>
+          <p class="flower_right"><img src="/assets/images/sample/images/images/images/flower_right.png"></p>
+  </body>
+</html>

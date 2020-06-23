@@ -1,11 +1,5 @@
 package jp.co.plan_b.training.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
-
 public class User {
 
 	private Integer id;
@@ -16,11 +10,23 @@ public class User {
 	}
 
 
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 	public String getName() {
-		// TODO 自動生成されたメソッド・スタブ
 		return name;
 	}
 
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

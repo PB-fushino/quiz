@@ -31,6 +31,8 @@ public class UserWebController {
   @ResponseBody
   public User login(HttpServletRequest request, HttpServletResponse response,
 	        @ModelAttribute User json) {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	  String name = json.getName();
 	  System.out.println(name);
 	  userService.registerUser(name);
@@ -48,6 +50,8 @@ public class UserWebController {
   @ResponseBody
   public String wait(HttpServletRequest request, HttpServletResponse response,
         @ModelAttribute User json) {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
   //jsonログインページで入力したユーザーネームとパスワードが入っている
 //      String username = json.getUsername();
 //      String password = json.getPassword();

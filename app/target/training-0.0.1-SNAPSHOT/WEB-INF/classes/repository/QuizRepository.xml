@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.plan_b.training.model.repository.user.QuizRepository">
+
+    <resultMap id="ResultTest" type="jp.co.plan_b.training.model.dto.Quiz">
+    </resultMap>
+
+    <resultMap id="Answers" type="jp.co.plan_b.training.model.dto.Answer">
+    </resultMap>
+
+
+
+    <select id="getAllQuiz"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 quiz
+    </select>
+
+    <select id="getQuiz"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 quiz
+      	 where
+      	 id =#{qid}
+    </select>
+
+     <select id="launchQuiz"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 quiz
+      	 left join quiz_status on quiz.id = quiz_status.qid
+      	 where
+      	 quiz_status.status = "出題";
+
+    </select>
+
+    <select id="checkQuiz"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 quiz
+      	 left join quiz_status on quiz.id = quiz_status.qid
+      	 where
+      	 quiz_status.status = "回答チェック"
+      	 or
+      	 quiz_status.status = "解答発表";
+
+    </select>
+
+    <insert id="insertAnswer">
+	INSERT INTO `quiz`.`answer`
+	(`uid`,`username`, `qid`, `answer`,`time`)
+	VALUES
+	(#{uid},#{username}, #{qid}, #{answer}, #{time});
+
+	</insert>
+
+	<select id="checkTime"  resultMap="Answers">
+	select
+	answer.time,
+	answer.username
+	from answer
+	left join user on answer.uid = user.id
+	left join quiz on answer.qid = quiz.id
+	where
+	answer.answer = quiz.answer
+	and
+	quiz.id = #{i}
+	ORDER BY
+	answer.time asc;
+
+	</select>
+
+	<select id="getScore"  resultMap="Answers">
+	select
+	answer.time,
+	answer.username
+	from answer
+	left join user on answer.uid = user.id
+	left join quiz on answer.qid = quiz.id
+	where
+	answer.answer = quiz.answer
+	and
+	answer.uid = #{id};
+	</select>
+
+	<select id="getUserScore"  resultMap="Answers">
+	select
+	answer.time,
+	answer.username
+	from answer
+	left join user on answer.uid = user.id
+	left join quiz on answer.qid = quiz.id
+	where
+	answer.uid = #{id};
+	</select>
+
+	<select id="getScoreByQid"  resultMap="Answers">
+	select
+	answer.answer,
+	answer.username
+	from answer
+	left join user on answer.uid = user.id
+	left join quiz on answer.qid = quiz.id
+	where
+	answer.qid = #{qid}
+	and
+	answer.answer = #{i}
+	</select>
+
+</mapper>

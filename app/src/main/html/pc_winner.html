@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="assets/styles/style.css" />
+  <title>HappyWedding</title>
+  <script type="text/javascript" src="js/ajax.js">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+  
+  
+
+<body>
+
+    <main>
+        <p style="height:40px;"></p>
+        <p><img  src ="/assets/images/sample/images/images/images/question_02_07.png" class="mark"></p>
+        <!-- <p><img  src ="assets/images/sample/images/images/images/answer_03_05.png" class="mark"></p> -->
+      <div class="question" style="height:10000px;">
+        <p style="text-align: center;font-size:40px;">ただいまの正解者は...</p>
+
+        <!-- answerマークと問題、選択肢の枠 -->
+        
+        <!-- answer -->
+        <!-- <li class="choice_text">
+            <p style="width:1124px; height:86px;font-size:100%;">あsdfgh</p>
+            <div class="frame">
+              <img src="/assets/images/sample/images/images/images/ranking_02_07.png">
+            </div>
+          </li> -->
+    
+        <p class="problem"></p>
+        <ul class="choices_text_win">
+        </ul>
+      </div>
+    </main>
+
+    <script>
+        var qid = localStorage.getItem("qid");
+        // alert(qid);
+        $(function(){checkTime(qid);})
+        $(function(){
+        var targetOffset = $('#main').offset().top;
+        $('html,body').delay(3000).animate({scrollTop: targetOffset},3000, "swing");
+        });
+    
+        window.onload=function(){
+              var count = 10;
+              var check = setInterval(function(){
+                check_quiz_status_wait();
+                if(count <= 0) clearInterval(id);
+              },1000);
+          }
+
+          // alert($(document).height());
+
+          $(function() {
+            $('body').delay(8000).animate({
+              scrollTop: $(document).height()
+            },1500);})
+            
+      </script>
+<div class="js"></div>
+    </body>
+    <h1 id="main"" style="font-size:10px; color:white;"></h1>
+</html>

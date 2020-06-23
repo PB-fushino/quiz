@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+.c-title {
+    &__h1 {
+        @include fz(21, 37, 700);
+        color: #ff00ff;
+        background: $colorMain;
+        padding: 15px;
+        font-size:100px;
+    }
+}

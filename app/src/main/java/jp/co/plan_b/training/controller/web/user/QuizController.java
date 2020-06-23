@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +47,19 @@ public class QuizController {
 
 	Logger logger = LoggerFactory.getLogger(QuizController.class);
 
-
 //全てのクイズを渡す
   @RequestMapping(value = "/quiz", method = RequestMethod.GET)
   @ResponseBody
-  public List<Quiz> quiz() throws JsonProcessingException {
+  public List<Quiz> quiz(HttpServletRequest request, HttpServletResponse response,
+	        @ModelAttribute User json) throws JsonProcessingException {
+
+//	  response.setHeader("Access-Control-Allow-Origin", "http://happywedding-manae-shinji.tk");
+//      response.setHeader("Access-Control-Allow-Credentials", "true");
+
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
+
+
 //	  String json = null;
 //	  ObjectMapper objectMapper = new ObjectMapper();
 	 //String name = json.getName();
@@ -61,14 +70,18 @@ public class QuizController {
 //出題になっているクイズのデータを返す
   @RequestMapping(value = "/launchquiz", method = RequestMethod.GET)
   @ResponseBody
-  public Quiz launchQuiz() throws JsonProcessingException {
+  public Quiz launchQuiz(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	 Quiz quiz = quizService.launchQuiz();
       return quiz;
     }
 //回答チェックになっているクイズのデータを返す
   @RequestMapping(value = "/checkquiz", method = RequestMethod.GET)
   @ResponseBody
-  public Quiz checkQuiz() throws JsonProcessingException {
+  public Quiz checkQuiz(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	 Quiz quiz = quizService.checkQuiz();
       return quiz;
     }
@@ -78,7 +91,12 @@ public class QuizController {
   //最終的な、正解数と回答時間をランキングで渡す
   @RequestMapping(value = "/winner", method = RequestMethod.GET)
   @ResponseBody
-  public Stream<Corrects> winner() {
+  public Stream<Corrects> winner(HttpServletRequest request, HttpServletResponse response,
+	        @ModelAttribute User json) {
+
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
+
 	  List<Corrects> corrects = new ArrayList<Corrects>();
 	  List<User> users = userService.getAllUser();
 	  //以下ユーザーごとに正解数と回答時間を計算
@@ -128,6 +146,7 @@ public class QuizController {
       return corrects.stream().sorted(comparator);
     }
   public class CorrectComparator implements Comparator<Corrects> {
+
 		@Override
 		public int compare(Corrects p1, Corrects p2) {
 			return p1.corrects < p2.corrects ? -1 : 1;
@@ -139,7 +158,9 @@ public class QuizController {
   //stanby画面
   @RequestMapping(value = "/quiz_status", method = RequestMethod.GET)
   @ResponseBody
-  public Quiz check_quiz_status() {
+  public Quiz check_quiz_status(HttpServletRequest request, HttpServletResponse response) {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	  Quiz quiz = quizService.launchQuiz();
 	  if (quiz != null) {
 		  return  quiz;
@@ -147,11 +168,15 @@ public class QuizController {
 		  return null;
 	  }
     }
+
+
 //qidを受け取ってステータスを返す
   @RequestMapping(value = "/quiz_status_answer", method = RequestMethod.POST)
   @ResponseBody
   public String quiz_status_answer(HttpServletRequest request, HttpServletResponse response,
 	        @ModelAttribute QuizStatus json) {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	  String status = quizStatusService.getQuizStatus(json.getQid());
 	  return status;
     }
@@ -160,16 +185,33 @@ public class QuizController {
   @ResponseBody
   public String change_status(HttpServletRequest request, HttpServletResponse response,
         @ModelAttribute QuizStatus json) {
+
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	  quizStatusService.changeStatus(json);
 	  System.out.println(json.getStatus());
 	  String status = quizStatusService.getQuizStatus(json.getQid());
       return status;
     }
+
+
+//healthcheck
+  @RequestMapping(value = "/health", method = RequestMethod.GET)
+  @ResponseBody
+  public String quiz(HttpServletRequest request, HttpServletResponse response) {
+    return "OK";
+  }
+
+
 //パネラーが回答した際に、回答情報を返す
   @RequestMapping(value = "/answer", method = RequestMethod.POST)
   @ResponseBody
   public String answer(HttpServletRequest request, HttpServletResponse response,
         @ModelAttribute Answer json) {
+
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
+
 	  System.out.println("問題"+json.getQid());
 	  quizService.answer(json);
 	  System.out.println("answer"+json.getAnswer());
@@ -181,6 +223,10 @@ public class QuizController {
   @ResponseBody
   public List<Answer> checkTime(HttpServletRequest request, HttpServletResponse response,
         @ModelAttribute Answer id) {
+	  HttpSession session = request.getSession(true);//
+
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	  List<Answer> answer = quizService.checkTime(id.getQid());
       return answer;
     }
@@ -190,6 +236,8 @@ public class QuizController {
   @ResponseBody
   public  HashMap<Integer,Integer> answercheck(HttpServletRequest request, HttpServletResponse response,
 	        @ModelAttribute Answer answer) {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+	  response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
 	  //以下ユーザーごとに正解数と回答時間を計算
 		  List<Answer> A = quizService.getScoreByQid(answer.getQid(),0);
 		  List<Answer> B = quizService.getScoreByQid(answer.getQid(),1);
