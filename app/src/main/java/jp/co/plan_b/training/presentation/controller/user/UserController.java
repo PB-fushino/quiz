@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import jp.co.plan_b.training.application.service.user.UserService;
+import jp.co.plan_b.training.infrastructure.entity.User;
+import jp.co.plan_b.training.infrastructure.entity.Users;
 import jp.co.plan_b.training.model.dto.ErrorDetail;
 import jp.co.plan_b.training.model.dto.ErrorResponse;
-import jp.co.plan_b.training.model.dto.User;
-import jp.co.plan_b.training.model.dto.Users;
 import jp.co.plan_b.training.presentation.request.user.RegisterUserRequest;
 import jp.co.plan_b.training.presentation.response.ResponseHeader;
 
@@ -36,7 +36,7 @@ public class UserController {
   public ResponseEntity<?> getAllUser() {
     Users users = new Users();
     try {
-      users.setUsers(userService.getAllUser());
+      users.setItems(userService.getAllUser());
     } catch (Throwable e) {
       logger.error(e.getMessage(), e);
       ErrorDetail errorDetail = new ErrorDetail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "000",

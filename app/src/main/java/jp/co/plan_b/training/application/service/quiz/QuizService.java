@@ -1,9 +1,8 @@
 package jp.co.plan_b.training.application.service.quiz;
 
 import java.util.List;
-
-import jp.co.plan_b.training.model.dto.Answer;
-import jp.co.plan_b.training.model.dto.Quiz;
+import jp.co.plan_b.training.infrastructure.entity.Answer;
+import jp.co.plan_b.training.infrastructure.entity.Quiz;
 
 public interface QuizService {
 

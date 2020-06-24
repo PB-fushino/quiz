@@ -1,6 +1,6 @@
 package jp.co.plan_b.training.application.service.quiz;
 
-import jp.co.plan_b.training.model.dto.QuizStatus;
+import jp.co.plan_b.training.infrastructure.entity.QuizStatus;
 
 public interface QuizStatusService {
 
