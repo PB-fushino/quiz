@@ -1,0 +1,528 @@
+swagger: '2.0'
+info:
+  title: Quiz
+  description: クイズアプリのWebAPI
+  version: 'v1'
+host: example.com
+basePath: /
+schemes:
+  - http
+tags:
+  - name: user
+    description: ユーザーに関する操作
+  - name: quiz
+    description: クイズに関する操作
+paths:
+  /users:
+    get:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        -  user
+      description: ユーザー一覧を返す
+      responses:
+        "200":
+          description: ユーザー一覧の取得に成功
+          schema:
+            type: object
+            properties:
+              items:
+                type: object
+                properties:
+                  id:
+                    type:  integer
+                    description: ユーザーのID
+                    example: 1
+                  name:
+                    type: string
+                    description: ユーザーの名前
+                    example: 田中太郎
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+
+    post:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        -  user
+      description: ユーザーを登録する
+
+      responses:
+        "200":
+          description: ユーザー登録して登録されたユーザーの名前を返す
+          schema:
+            properties:
+              name:
+                type: string
+                example: 田中太郎
+                description: 登録されたユーザーの名前
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+
+  /quiz:
+    get:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        - quiz
+      description: 指定されたIDに紐づくクイズの内容を返す
+      responses:
+        "200":
+          description: クイズの一覧
+          schema:
+            type: object
+            properties:
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 対象日の順位
+                  term:
+                    type: integer
+                    description: クイズのターム
+                  ordernumber:
+                    type: integer
+                    description: ターム内の順番
+                  problem:
+                    type: string
+                    description: 問題文
+                  answer:
+                    type: integer
+                    description: 答えの番号
+                  choice_a:
+                    type: string
+                    description: 選択肢A
+                  choice_b:
+                    type: string
+                    description: 選択肢B
+                  choice_c:
+                    type: string
+                    description: 選択肢C
+                  choice_d:
+                    type: string
+                    description: 選択肢D
+
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+
+  /quiz/status:
+    get:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        - quiz
+      description: 指定されたIDに紐づくクイズの内容を返す
+      parameters:
+        - name: status
+          in: query
+          description: 指定するステータス   待機中 |  出題中 | 回答チェック中 
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: 指定されたIDに紐づくクイズの内容を返す
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 対象日の順位
+              term:
+                type: integer
+                description: クイズのターム
+              ordernumber:
+                type: integer
+                description: ターム内の順番
+              problem:
+                type: string
+                description: 問題文
+              answer:
+                type: integer
+                description: 答えの番号
+              choice_a:
+                type: string
+                description: 選択肢A
+              choice_b:
+                type: string
+                description: 選択肢B
+              choice_c:
+                type: string
+                description: 選択肢C
+              choice_d:
+                type: string
+                description: 選択肢D
+
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+  
+    put:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        - quiz
+      description: クイズのステータスを変更する
+      parameters:
+        - in: body
+          description: 対象のクイズID
+          required: true
+          type: string
+          schema:
+            properties:
+              qid:
+                type: integer
+                example: クイズID
+                description: クイズID
+              status:
+                type:  string
+                example: 田中太郎
+                description: 変更後のステータス
+
+      responses:
+        "200":
+          description: ステータスの更新成功
+
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+
+  /ranking:
+    get:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        - quiz
+      description: 現時点での正解数、回答時間のランキングを返す
+      
+      responses:
+        "200":
+          description: ランキングの取得に成功s
+          schema:
+            type: object
+            properties:
+              items:
+                type: object
+                properties:
+                  username:
+                    type: integer
+                    description: ユーザー名
+                  corrects:
+                    type:  integer
+                    description: 正解数
+                  times:
+                    type:  integer
+                    description: 総回答時間
+                example:
+                  - username: 田中太郎
+                    corrects:  10
+                    times:  30000
+
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+
+  /answer:
+    get:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        - quiz
+      description: 回答を登録し、正解不正解を返す
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "順位取得リクエスト"
+          required: true
+          schema:
+            properties:
+              uid:
+                type: integer
+                example: 1
+                description: ユーザーのID
+              qid:
+                type:  integer
+                example: 4
+                description: クイズのID
+              answer:
+                type:  integer
+                example:  1
+                description: 回答番号
+              time:
+                type: integer
+                example: 3000
+                description: 回答時間
+      responses:
+        "200":
+          description: 回答取得成功
+          schema:
+            type: object
+            properties:
+              items:
+                type: object
+                properties:
+                  answerNumber:
+                    type:  integer
+                    description: 回答の番号
+                  answers:
+                    type:  integer
+                    description: 回答者数
+                example:
+                  - answerNumber: 0
+                    answer:  20
+                  - answerNumber: 1
+                    answer:  10
+                  - answerNumber: 2
+                    answer:  15
+                  - answerNumber: 3
+                    answer:  20
+
+
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+
+    post:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        - quiz
+      description: 回答を登録し、正解不正解を返す
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "順位取得リクエスト"
+          required: true
+          schema:
+            properties:
+              uid:
+                type: integer
+                example: ユーザー ID
+                description: ユーザーのID
+              qid:
+                type:  integer
+                example: 4
+                description: クイズのID
+              answer:
+                type:  integer
+                example:  1
+                description: 回答番号
+              time:
+                type: integer
+                example: 3000
+                description: 回答時間
+      responses:
+        "200":
+          description: 回答登録成功
+            
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+    
+  /answer/{qid}:
+    get:
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      tags:
+        - quiz
+      description:  指定されたクイズの正解者を回答時間の短い順にかえす
+      parameters:
+        - in: path
+          name: qid
+          type: integer
+          description: クイズID
+          required: true
+      responses:
+        "200":
+          description: 回答登録成功
+          schema:
+            properties:
+              uid:
+                type: integer
+                example: ユーザー ID
+                description: ユーザーのID
+              qid:
+                type:  integer
+                example: 4
+                description: クイズのID
+              answer:
+                type:  integer
+                example:  1
+                description: 回答番号
+              time:
+                type: integer
+                example: 3000
+                description: 回答時間
+
+        '400':
+          description: "Failed.. Bad Request."
+          schema:
+            $ref: "#/definitions/BadRequest"
+
+        "500":
+          description: "Failed.. 予期しないエラーが発生しました."
+          schema:
+            $ref: "#/definitions/InternalServerError"
+
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+#definitions:
+#  # API側で使用する
+#  HttpStatusCode:
+#    title: "StatusCode"
+#    type: "integer"
+#    enum: &STATUSCODE
+#    - 200
+#    - 204
+#    - 400
+#    - 404
+
+definitions:
+
+  BadRequest:
+    description: "400 Bad Request"
+    type: "object"
+    properties:
+      errors:
+        type: "array"
+        items:
+          type: "object"
+          description: "Response Data"
+          properties:
+            status:
+              example: 400
+              type: "integer"
+            code:
+              example: "000"
+            userMessage:
+              example: "データの取得に失敗しました"
+              type: "string"
+            devMessage:
+              example: "100:BadRequestException"
+              type: "string"
+              description: "Track id:例外名"
+            devInfo:
+              example: "https://example.com/"
+              type: "string"
+
+  NotFound:
+    description: "404 Not Found"
+    type: "object"
+    properties:
+      errors:
+        type: "array"
+        items:
+          type: "object"
+          description: "Response Data"
+          properties:
+            status:
+              example: 404
+              type: "integer"
+            code:
+              example: "000"
+            userMessage:
+              example: "データの取得に失敗しました"
+              type: "string"
+            devMessage:
+              example: "100:NotFoundException"
+              type: "string"
+              description: "Track id:例外名"
+            devInfo:
+              example: "https://example.com/"
+              type: "string"
+
+  InternalServerError:
+    description: "Failed.. 予期しないエラーが発生しました."
+    type: "object"
+    properties:
+      errors:
+        type: "array"
+        items:
+          type: "object"
+          description: "レスポンスデータ"
+          properties:
+            status:
+              example: 500
+              type: "integer"
+            code:
+              example: "000"
+            userMessage:
+              example: "問題が発生しました"
+              type: "string"
+            devMessage:
+              example: "100:Exception"
+              type: "string"
+              description: "Track id:例外名"
+            devInfo:
+              example: "https://example.com/"
+              type: "string"

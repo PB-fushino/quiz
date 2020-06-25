@@ -1,23 +1,23 @@
 package jp.co.plan_b.training.presentation.controller.quiz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jp.co.plan_b.training.application.service.quiz.QuizService;
@@ -25,11 +25,14 @@ import jp.co.plan_b.training.application.service.quiz.QuizStatusService;
 import jp.co.plan_b.training.application.service.user.UserService;
 import jp.co.plan_b.training.infrastructure.entity.Answer;
 import jp.co.plan_b.training.infrastructure.entity.Quiz;
-import jp.co.plan_b.training.infrastructure.entity.QuizStatus;
 import jp.co.plan_b.training.infrastructure.entity.Quizzes;
 import jp.co.plan_b.training.infrastructure.entity.User;
+import jp.co.plan_b.training.model.dto.AnswerMap;
+import jp.co.plan_b.training.model.dto.AnswerNumber;
 import jp.co.plan_b.training.model.dto.Corrects;
-import jp.co.plan_b.training.presentation.request.user.RegisterUserRequest;
+import jp.co.plan_b.training.presentation.request.quiz.GetQuizRequest;
+import jp.co.plan_b.training.presentation.request.quiz.PostAnswerRequest;
+import jp.co.plan_b.training.presentation.request.quiz.UpdateQuizStatusRequest;
 import jp.co.plan_b.training.presentation.response.ResponseHeader;
 
 @RestController
@@ -48,8 +51,6 @@ public class QuizController {
   @Autowired
   ResponseHeader responseHeader;
 
-  Logger logger = LoggerFactory.getLogger(QuizController.class);
-
   /*
    * クイズ一覧を返す
    */
@@ -62,198 +63,106 @@ public class QuizController {
   }
 
   /*
-   * 出題中のクイズを渡す
+   * 指定されたステータスのクイズを返す
    */
-  @GetMapping("/launchquiz")
-  public ResponseEntity<?> launchQuiz(HttpServletRequest request, HttpServletResponse response)
-      throws JsonProcessingException {
-    Quiz quiz = quizService.launchQuiz();
+  @GetMapping("/quiz/status")
+  public ResponseEntity<?> getQuizStatus(HttpServletRequest request, HttpServletResponse response,
+      @Valid GetQuizRequest requestParam) throws JsonProcessingException {
+    Quiz quiz = quizService.searchQuiz(requestParam);
     return ResponseEntity.ok().headers(responseHeader.getStandardGetHeader()).body(quiz);
   }
 
   /*
-   * 回答チェックになっているクイズを返す
+   * クイズのステータスを更新する
    */
-  @GetMapping("/checkquiz")
-  public ResponseEntity<?> checkQuiz(HttpServletRequest request, HttpServletResponse response)
-      throws JsonProcessingException {
-    Quiz quiz = quizService.checkQuiz();
-    return ResponseEntity.ok().headers(responseHeader.getStandardGetHeader()).body(quiz);
+  @PutMapping("/quiz/status")
+  public ResponseEntity<?> changeQuizStatus(HttpServletRequest request,
+      HttpServletResponse response, @RequestBody @Valid UpdateQuizStatusRequest requestParam,
+      BindingResult binfingResult) {
+    quizStatusService.changeStatus(requestParam);
+    String status = quizStatusService.getQuizStatus(requestParam.getQid());
+    return ResponseEntity.ok().headers(responseHeader.getStandardPutHeader()).body(status);
   }
 
-  // 最終的な、正解数と回答時間をランキングで渡す
-  @RequestMapping(value = "/winner", method = RequestMethod.GET)
-  @ResponseBody
-  public Stream<Corrects> winner(HttpServletRequest request, HttpServletResponse response,
-      @ModelAttribute RegisterUserRequest json) {
+  /*
+   * 現時点での正解数降順と回答時間昇順でユーザー一覧を返す
+   */
+  @GetMapping("/ranking")
+  public ResponseEntity<?> getRanking(HttpServletRequest request, HttpServletResponse response) {
 
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
-
+    // TODO サービスに切り出し
     List<Corrects> corrects = new ArrayList<Corrects>();
     List<User> users = userService.getAllUser();
     // 以下ユーザーごとに正解数と回答時間を計算
     for (int i = 0; i < users.size(); i++) {
-      List<Answer> scores = quizService.getScore(users.get(i).getId());// 正解してる物
+      List<Answer> scores = quizService.getScore(users.get(i).getId());// 正解のリスト
       List<Answer> userscores = quizService.getUserScore(users.get(i).getId());// ユーザーごとの時間と回答データ
+      Integer numberOfCorrects = scores.size();
+      Integer totalTime = 0;
+      for (Answer userscore : userscores) {
+        totalTime += userscore.getTime();
+      }
       Corrects correct = new Corrects();
       correct.setUsername(users.get(i).getName());
-      Integer numberOfCorrects = 0;
-      Integer totalTime = 0;
-      // answer.answer = quiz.answer
-      // and
-      if (CollectionUtils.isEmpty(scores)) {
-        System.out.println("karadayoo");
-      } else {
-        numberOfCorrects += scores.size();
-        for (Answer score : scores) {
-          System.out.println("名前:" + score.getUsername());
-          System.out.println("時間:" + score.getTime());
-          // totalTime += score.getTime();
-          System.out.println("正解数：" + numberOfCorrects);
-          System.out.println("総回答時間：" + totalTime);
-        }
-      }
-
-      if (CollectionUtils.isEmpty(userscores)) {
-        System.out.println("karadayoo");
-      } else {
-        for (Answer userscore : userscores) {
-          totalTime += userscore.getTime();
-        }
-      }
       correct.setCorrects(numberOfCorrects);
       correct.setTimes(totalTime);
       corrects.add(correct);
     }
-    // 回答時間が短い順にソートする
+
+    // 回答時間が短い順にユーザーリストをソートする
     Comparator<Corrects> comparator =
         Comparator.comparing(Corrects::getCorrects).reversed().thenComparing(Corrects::getTimes);
 
-    corrects.stream().sorted(comparator).forEach(
-        a -> System.out.println(a.getUsername() + " " + a.getTimes() + " " + a.getCorrects()));
+    List<Corrects> sortedCorrectList =
+        corrects.stream().sorted(comparator).collect(Collectors.toList());
 
-    return corrects.stream().sorted(comparator);
+    return ResponseEntity.ok().headers(responseHeader.getStandardGetHeader())
+        .body(sortedCorrectList);
   }
-
-  public class CorrectComparator implements Comparator<Corrects> {
-
-    @Override
-    public int compare(Corrects p1, Corrects p2) {
-      return p1.corrects < p2.corrects ? -1 : 1;
-    }
-  }
-
 
   /*
-   * 出題中になっているクイズがあるかどうかを返す
+   * 回答を登録し、正解不正解をbooleanで返す
    */
-  @GetMapping("/quiz_status")
-  @ResponseBody
-  public Quiz check_quiz_status(HttpServletRequest request, HttpServletResponse response) {
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
-    Quiz quiz = quizService.launchQuiz();
-    if (quiz != null) {
-      return quiz;
-    } else {
-      return null;
-    }
+  @PostMapping("/answer")
+  public ResponseEntity<?> answer(HttpServletRequest request, HttpServletResponse response,
+      @ModelAttribute PostAnswerRequest requestParam) {
+    quizService.answer(requestParam);
+    return ResponseEntity.ok().headers(responseHeader.getStandardPostHeader())
+        .body(quizService.checkAnswer(requestParam));
   }
 
-  // qidを受け取ってステータスを返す
-  @RequestMapping(value = "/quiz_status_answer", method = RequestMethod.POST)
-  @ResponseBody
-  public String quiz_status_answer(HttpServletRequest request, HttpServletResponse response,
-      @ModelAttribute QuizStatus json) {
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
-    String status = quizStatusService.getQuizStatus(json.getQid());
-    return status;
+  /*
+   * 正解者と回答時間を返す 回答時間の短い順に返す
+   */
+  @GetMapping("/answer/{quizId}")
+  public ResponseEntity<?> answerTime(HttpServletRequest request, HttpServletResponse response,
+      @PathVariable("quizId") Integer quizId) {
+    List<Answer> answer = quizService.checkTime(quizId);
+    return ResponseEntity.ok().headers(responseHeader.getStandardGetHeader()).body(answer);
   }
 
-  // 管理画面で問題のステータスをupdateしてstatusを返す
-  @RequestMapping(value = "/change_status", method = RequestMethod.POST)
-  @ResponseBody
-  public String change_status(HttpServletRequest request, HttpServletResponse response,
-      @ModelAttribute QuizStatus json) {
-
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
-    quizStatusService.changeStatus(json);
-    System.out.println(json.getStatus());
-    String status = quizStatusService.getQuizStatus(json.getQid());
-    return status;
-  }
-
-
-  // healthcheck
-  @RequestMapping(value = "/health", method = RequestMethod.GET)
-  @ResponseBody
-  public String quiz(HttpServletRequest request, HttpServletResponse response) {
-    return "OK";
-  }
-
-
-  // パネラーが回答した際に、回答情報を返す
-  @RequestMapping(value = "/answer", method = RequestMethod.POST)
-  @ResponseBody
-  public String answer(HttpServletRequest request, HttpServletResponse response,
-      @ModelAttribute Answer json) {
-
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
-
-    System.out.println("問題" + json.getQid());
-    quizService.answer(json);
-    System.out.println("answer" + json.getAnswer());
-    return quizService.checkAnswer(json);
-  }
-
-  // 回答じかんと正解者を返して、問題ごとの優勝者を発表する
-  @RequestMapping(value = "/checkTime", method = RequestMethod.POST)
-  @ResponseBody
-  public List<Answer> checkTime(HttpServletRequest request, HttpServletResponse response,
-      @ModelAttribute Answer id) {
-
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
-    List<Answer> answer = quizService.checkTime(id.getQid());
-    return answer;
-  }
-
-  // qidを渡して問題ごとの回答者数をわたす。
-  @RequestMapping(value = "/checkanswer", method = RequestMethod.POST)
-  @ResponseBody
-  public HashMap<Integer, Integer> answercheck(HttpServletRequest request,
-      HttpServletResponse response, @ModelAttribute Answer answer) {
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT,DELETE,OPTIONS");
+  /*
+   * 指定されたクイズIDに紐づく問題について、どの選択肢に何人回答したのかを返す
+   */
+  @GetMapping("/answer")
+  public ResponseEntity<?> answercheck(HttpServletRequest request, HttpServletResponse response,
+      @ModelAttribute Answer answer) {
     // 以下ユーザーごとに正解数と回答時間を計算
+    // TODO サービス切り出し
     List<Answer> A = quizService.getScoreByQid(answer.getQid(), 0);
     List<Answer> B = quizService.getScoreByQid(answer.getQid(), 1);
     List<Answer> C = quizService.getScoreByQid(answer.getQid(), 2);
     List<Answer> D = quizService.getScoreByQid(answer.getQid(), 3);
-    // qidからアンサーデータを取得
-    int sizeOfA = 0;
-    int sizeOfB = 0;
-    int sizeOfC = 0;
-    int sizeOfD = 0;
 
-    sizeOfA = A.size();
-    sizeOfB = B.size();
-    sizeOfC = C.size();
-    sizeOfD = D.size();
+    AnswerNumber number0 = new AnswerNumber(0, A.size());
+    AnswerNumber number1 = new AnswerNumber(1, B.size());
+    AnswerNumber number2 = new AnswerNumber(2, C.size());
+    AnswerNumber number3 = new AnswerNumber(3, D.size());
 
-    HashMap<Integer, Integer> map = new HashMap<>();
-    map.put(0, sizeOfA);
-    map.put(1, sizeOfB);
-    map.put(2, sizeOfC);
-    map.put(3, sizeOfD);
+    List<AnswerNumber> answerNumbers = Arrays.asList(number0, number1, number2, number3);
+    AnswerMap map = new AnswerMap(answerNumbers);
 
-    return map;
+    return ResponseEntity.ok().headers(responseHeader.getStandardGetHeader()).body(map);
   }
 
 }
-
-

@@ -7,6 +7,8 @@ import jp.co.plan_b.training.infrastructure.entity.Answer;
 import jp.co.plan_b.training.infrastructure.entity.Quiz;
 import jp.co.plan_b.training.infrastructure.repository.quiz.QuizRepository;
 import jp.co.plan_b.training.infrastructure.repository.user.UserRepository;
+import jp.co.plan_b.training.presentation.request.quiz.GetQuizRequest;
+import jp.co.plan_b.training.presentation.request.quiz.PostAnswerRequest;
 
 @Service
 public class QuizServiceImp implements QuizService {
@@ -22,7 +24,7 @@ public class QuizServiceImp implements QuizService {
   }
 
   @Override
-  public void answer(Answer answer) {
+  public void answer(PostAnswerRequest answer) {
     int uid = answer.getUid();
     String username = userRepository.getUserById(uid).getName();
     quizRepository.insertAnswer(answer.getUid(), username, answer.getQid(), answer.getAnswer(),
@@ -31,21 +33,13 @@ public class QuizServiceImp implements QuizService {
 
   @Override
   public List<Answer> checkTime(int i) {
-    // TODO 自動生成されたメソッド・スタブ
-    System.out.println(i);
     return quizRepository.checkTime(i);
   }
 
   @Override
-  public String checkAnswer(Answer json) {
-    int Answer = json.getAnswer();
-    Quiz quiz = quizRepository.getQuiz(json.getQid());
-    if (Answer == quiz.getAnswer()) {
-      return "正解";
-    } else {
-      return "不正解";
-    }
-
+  public Boolean checkAnswer(PostAnswerRequest request) {
+    Quiz quiz = quizRepository.getQuiz(request.getQid());
+    return request.getAnswer().equals(quiz.getAnswer());
   }
 
   @Override
@@ -82,5 +76,11 @@ public class QuizServiceImp implements QuizService {
     // TODO 自動生成されたメソッド・スタブ
     return quizRepository.getScoreByQid(qid, i);
   }
+
+  @Override
+  public Quiz searchQuiz(GetQuizRequest requestParam) {
+    return quizRepository.searchQuiz(requestParam.getStatus());
+  }
+
 
 }

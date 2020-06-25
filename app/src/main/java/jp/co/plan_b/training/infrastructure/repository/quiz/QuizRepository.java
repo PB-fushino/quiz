@@ -33,5 +33,7 @@ public interface QuizRepository {
 
   List<Answer> getScoreByQid(Integer qid, int i);
 
+  Quiz searchQuiz(String status);
+
 
 }

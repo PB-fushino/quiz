@@ -32,7 +32,16 @@
       	 left join quiz_status on quiz.id = quiz_status.qid
       	 where
       	 quiz_status.status = "出題";
+    </select>
 
+    <select id="searchQuiz"  resultMap="ResultTest">
+        SELECT
+         *
+      	FROM
+      	 quiz
+      	 left join quiz_status on quiz.id = quiz_status.qid
+    	WHERE
+      	 quiz_status.status = #{status};
     </select>
 
     <select id="checkQuiz"  resultMap="ResultTest">
