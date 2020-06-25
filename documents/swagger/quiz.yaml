@@ -201,10 +201,10 @@ paths:
         - quiz
       description: クイズのステータスを変更する
       parameters:
-        - in: body
+        - name: body 
+          in: body
           description: 対象のクイズID
           required: true
-          type: string
           schema:
             properties:
               qid:
@@ -321,15 +321,8 @@ paths:
                     type:  integer
                     description: 回答者数
                 example:
-                  - answerNumber: 0
+                  - answerNumber:  10
                     answer:  20
-                  - answerNumber: 1
-                    answer:  10
-                  - answerNumber: 2
-                    answer:  15
-                  - answerNumber: 3
-                    answer:  20
-
 
         '400':
           description: "Failed.. Bad Request."
