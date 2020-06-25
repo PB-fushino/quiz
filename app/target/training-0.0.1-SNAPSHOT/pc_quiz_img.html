@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="assets/styles/style.css" />
+  <title>タイトル</title>
+  <script type="text/javascript" src="js/ajax.js">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+    <p class="flower_left"><img src="/assets/images/sample/images/images/images/flower_left_02.png"></p>
+
+<main>
+  <!-- <p class="flower_left"><img src="/assets/images/sample/images/images/images/flower_left_02.png"></p> -->
+    <p style="height:40px;"></p>
+    <p><img  src ="/assets/images/sample/images/images/images/question_02_07.png" class="mark"></p>
+    <!-- <p><img  src ="assets/images/sample/images/images/images/answer_03_05.png" class="mark"></p> -->
+  <div class="question">
+    <!-- answerマークと問題、選択肢の枠 -->
+    
+    <!-- answer -->
+
+    <p class="problem"></p>
+    <ul class="choices">
+      <li class="choice">
+        <img class="a" >
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choice_1_10.png">
+        </div>
+      </li>
+      <li class="choice">
+        <img class="b">
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choice_2_12.png">
+        </div>
+      </li>
+      <li class="choice">
+        <img class="c" >
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choice_3_14.png">
+        </div>
+      </li>
+      <li class="choice">
+        <img class="d" >
+        <div class="frame">
+          <img src="/assets/images/sample/images/images/images/frame_choice_4_16.png">
+        </div>
+      </li>
+    </ul>
+    <div id= "timer"class="count">10</div>
+  </div>
+</main>
+<script>
+    var start;
+    var stop;
+    var qid;
+     window.onload = launchquiz_img();
+    //  $(.button.c).onclick= function
+
+     window.onload=function(){
+          start = new Date();
+          var count = 10;
+          var id = setInterval(function(){
+            count--;
+            document.querySelector('#timer').textContent=count;
+            if(count <= 0) clearInterval(id);
+          },1000);
+          var check = setInterval(function(){
+            check_quiz_status_answer_pc_img();
+            if(count <= 0) clearInterval(id);
+          },1000);
+      }
+
+      function stopTimer(){
+        stop = new Date();
+        // 経過時間をミリ秒で取得
+        var ms = stop.getTime() - start.getTime();
+        var s = ms / 1000
+        console.log("処理時間: " + ms + "ミリ秒");
+
+      }
+
+  </script>
+</body>
+  <p class="flower_right"><img src="/assets/images/sample/images/images/images/flower_right.png"></p>
+</html>
